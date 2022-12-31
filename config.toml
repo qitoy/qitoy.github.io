@@ -1,0 +1,14 @@
+baseURL = 'https://qitoy.github.io/'
+languageCode = 'ja-jp'
+theme = 'github-style'
+title = "qitoy's blog"
+
+[params]
+author = 'しゅどぼ'
+avatar = "/images/avatar.jpg"
+description = 'なんだろこれ'
+github = 'qitoy'
+twitter = '_QiToY'
+hugoRepository = 'qitoy.github.io'
+url = 'https://qitoy.github.io'
+
