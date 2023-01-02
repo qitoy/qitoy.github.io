@@ -59,3 +59,9 @@ SKKでは変換のためにshiftを利用するが、これがDvorak配列と相
 # おわりに
 
 skkeletonのテストも兼ねて軽い記事を書いてみた。もしプラグイン化するなら普通のDvorakやQwertyとの切り替え、デフォルトでの記号類・制御キーの有無などが求められるか。
+
+# 追記(2023-01-03) AquaSKK(MacのSKK)ではどうしていたか
+
+AquaSKKはけっこう何でもできちゃうので、kana-rule.conf(kanatableに相当するもの)に`":<>`などの文字を追加し、keymap.confでさっきの文字を「大文字」だと判定させるようにした。こうすることで相性の悪さを克服し、いつもどおりのSKKの感覚でgACT10を再現することができた。(詳しくは[ここ](https://gist.github.com/qitoy/3c255497b9ce6ecfa2c90fb3bdae7da1))
+
+

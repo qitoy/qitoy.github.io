@@ -2,6 +2,7 @@ baseURL = 'https://qitoy.github.io/'
 languageCode = 'ja-jp'
 theme = 'github-style'
 title = "qitoy's blog"
+enableGitInfo = true
 
 [params]
 author = 'しゅどぼ'
