@@ -6,7 +6,7 @@ draft: false
 
 # これは何
 
-<https://twitter.com/nosense_II/status/1609749979849187328>
+海苔扇子のツイタから
 
 <!--more-->
 
