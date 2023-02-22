@@ -1,7 +1,7 @@
 ---
 title: "Fusing Slimes解説"
 date: 2023-02-23T01:13:17+09:00
-draft: true
+draft: false
 ---
 
 # これは何
