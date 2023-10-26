@@ -15,14 +15,16 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v4.1.0
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          go-version: '1.21'
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.101.0'
+          hugo-version: '0.119'
 
       - name: Build
         run: hugo --minify

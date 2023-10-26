@@ -1,6 +1,0 @@
-[submodule "themes/m10c"]
-	path = themes/m10c
-	url = https://github.com/vaga/hugo-theme-m10c.git
-[submodule "themes/github-style"]
-	path = themes/github-style
-	url = git@github.com:MeiK2333/github-style.git

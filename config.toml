@@ -1,6 +1,5 @@
 baseURL = 'https://qitoy.github.io/'
 languageCode = 'ja-jp'
-theme = 'github-style'
 title = "qitoy's blog"
 enableGitInfo = true
 
@@ -13,3 +12,6 @@ twitter = '_QiToY'
 hugoRepository = 'qitoy.github.io'
 url = 'https://github.com/qitoy/qitoy.github.io'
 
+[module]
+[[module.imports]]
+path = "github.com/MeiK2333/github-style"
