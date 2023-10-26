@@ -10,10 +10,9 @@ Hugoでのブログの書き方を忘れてしまった……（随時更新）
 
 <!--more-->
 
-
 # 書き方
 
-まずプロジェクトルート（submoduleが必須）で
+まずプロジェクトルート ~~（submoduleが必須）~~ で
 ```bash
 hugo new post/hoge.md
 # or: hugo new post/hoge/index.md
@@ -25,7 +24,7 @@ hugo new post/hoge.md
 ```bash
 hugo server
 ```
-をすると書きながらブラウザの`localhost:1313`で確認できる。ここでエラーが出て表示できないときはsubmoduleのロードを忘れているかもなのでやる
+をすると書きながらブラウザの`localhost:1313`で確認できる。 ~~ここでエラーが出て表示できないときはsubmoduleのロードを忘れているかもなのでやる~~
 
 できたらpushしましょう
 
@@ -44,6 +43,14 @@ hugo特有の形式（ショートコードShortcodesという）として、
 {{</*/* aaa */*/>}}
 ```
 とする。
+
+## hugo mod
+
+Hugo Modulesを使うと色々楽らしい
+
+Goが必要だがそれを上回るメリットがある
+
+[ここ](https://maku77.github.io/p/bqar8o6/)を見よ
 
 # おわりに
 

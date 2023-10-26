@@ -1,2 +1,4 @@
 github.com/MeiK2333/github-style v0.0.0-20230918025927-fafe84e58f28 h1:tBf/ff3pKpBFko1EtjbHQTT0DhK2kXnaKp3Xz9HjNyg=
 github.com/MeiK2333/github-style v0.0.0-20230918025927-fafe84e58f28/go.mod h1:MDvfpZqhD/YSKR6X4f5hVUv588HxL1MVjsCTSM7ETxs=
+github.com/sytranvn/hugo-pdf v1.1.0 h1:mnC9HqGnsZMQvJ/DmhSO+QkPJX6Y2A/pMg31UF7PHiY=
+github.com/sytranvn/hugo-pdf v1.1.0/go.mod h1:0daeyEiF+LnA9YVUICiTO2YlNrNPpGwxI0kp+QvJQi4=
