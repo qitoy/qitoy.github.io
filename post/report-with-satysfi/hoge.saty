@@ -1,0 +1,119 @@
+@require: azmath/azmath
+@require: figbox/figbox
+@require: code-printer/code-printer
+@require: code-printer/code-theme
+@require: code-printer/code-syntax
+@require: code-printer/code-design
+@require: bibyfi/bibyfi
+@require: class-exdesign/exdesign
+@require: class-exdesign/article-ja
+
+let bib-default =
+  (|
+    title = ` `;
+    author = None;
+    organization = None;
+    address = None;
+    edition = None;
+    month = None;
+    year = None;
+    note = None;
+    key = None;
+  |)
+let bibs =
+  [
+    (`aho`, Manual(|
+      bib-default with title = `桂三度`;
+      author = Some([`Wikipedia`;]);
+      address = Some(`https://ja.wikipedia.org/wiki/%E6%A1%82%E4%B8%89%E5%BA%A6`);
+    |));
+  ]
+let mk-index ctx index =
+  let s = `[` ^ arabic index ^ `] `# in read-inline ctx (embed-string s)
+let mk-manual r =
+  match (r#author, r#address) with
+    | (Some([author]), Some(address)) -> let inner = embed-string (r#title ^ `, `# ^ author) in { \href (address) (inner); }
+    | _ -> { invalid }
+let bibyfi-theme ctx index bib-item =
+  match bib-item with
+    | Manual(r) -> BiByFi.make-entry ctx (mk-index ctx index) (read-inline ctx (mk-manual r))
+    | _ -> BiByFi.make-entry ctx (mk-index ctx index) (read-inline ctx { invalid })
+let source =
+  CodePrinter.default
+    |> CodePrinter.set-syntax CodeSyntax.rust
+    |> CodePrinter.set-theme CodeTheme.basic-light
+    |> CodePrinter.set-line-break-mark (fun _ _ -> (inline-nil, inline-nil))
+let prompt =
+  CodePrinter.default
+    |> CodePrinter.set-line-break-mark (fun _ _ -> (inline-nil, inline-nil))
+    |> CodePrinter.set-number-fun CodeDesign.number-fun-null
+let-math \range m1 m2 = math-paren AZMathParens.square-bracket-l AZMathParens.round-bracket-r ${#m1 , #m2}
+let-math \len = math-char MathOrd `len`
+let circle-text ((x, y) as c) r it ctx =
+  let ib = read-inline ctx it in
+  let gr = draw-text c ib in
+  let ((xmin, ymin), (xmax, ymax)) = get-graphics-bbox gr in
+  let (xwid, ywid) = (xmax -' xmin, ymax -' ymin) in
+  let text = shift-graphics (0pt -' xwid *' 0.5, 0pt -' ywid *' 0.5) gr in
+    [
+      Gr.circle c r
+        |> stroke 1pt Color.black;
+      text;
+    ]
+in
+
+document(|
+  title = { レポート };
+  author = { qitoy しゅどぼ };
+  date = {};
+  show-title = true;
+  show-toc = false;
+  style = ArticleJa.a4paper;
+  design = (|
+    ArticleJa.article with section-num-function = fun _ i -> `問` ^ arabic i;
+  |);
+  header-footer = ArticleJa.normalHF;
+  fonts = ArticleJa.fonts;
+|)'<
+  +section {} <
+    +file-printer ?:(source) (`main.rs`);
+    +code-printer ?:(prompt) (`$ rustc main.rs
+$ ./main
+1
+1
+
+$ ./main
+6
+aho
+
+$ ./main
+13
+aho
+
+$ ./main
+17
+17`);
+
+    +p { 3の倍数と3が付く数字のときは\inline-code (`aho`);を返し、そうでないときは数字をそのまま返す世界のナベアツ\cite [`aho`;];プログラムである。 }
+
+    +eqn (${\range{0}{\len_{1}} + \range{\len_{1}}{\len_{2}} = \range{0}{\len_{2} \notag}});
+
+    +fig-center (FigBox.(
+      vconcat ?:align-center [
+      from-graphics (100pt, 100pt) []
+      |> graffiti-given-context (
+          circle-text (50pt, 50pt) 30pt {unko}
+          ) |> frame 1pt Color.black;
+      gap 10pt;
+      textbox {図1};
+      ]));
+  >
+
+  +makebibliography (bibyfi-theme) (bibs);
+
+  +section {} <
+    +p { せっかくなのでこのソースコードを貼ってみる。 }
+    +file-printer ?:(source
+      |> CodePrinter.set-syntax CodeSyntax.satysfi) (`hoge.saty`);
+  >
+>
