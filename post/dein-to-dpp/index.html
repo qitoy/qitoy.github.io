@@ -1,0 +1,358 @@
+<!doctype html><html lang=ja-jp><head><meta charset=utf-8><meta name=viewport content="width=device-width"><script type=application/javascript src=https://qitoy.github.io/js/theme-mode.js></script>
+<link rel=stylesheet href=https://qitoy.github.io/css/frameworks.min.css><link rel=stylesheet href=https://qitoy.github.io/css/github.min.css><link rel=stylesheet href=https://qitoy.github.io/css/github-style.css><link rel=stylesheet href=https://qitoy.github.io/css/light.css><link rel=stylesheet href=https://qitoy.github.io/css/dark.css><link rel=stylesheet href=https://qitoy.github.io/css/syntax.css><title>dein.vimからdpp.vimに段階的に移行する - qitoy's blog</title><link rel=icon type=image/x-icon href=https://qitoy.github.io/images/favicon.ico><meta name=theme-color content="#1e2327"><meta name=description content="これは何 移行しました
+"><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://qitoy.github.io/post/dein-to-dpp/><meta name=twitter:card content="summary"><meta name=twitter:title content="dein.vimからdpp.vimに段階的に移行する - qitoy's blog"><meta name=twitter:description content="これは何 移行しました
+"><meta name=twitter:site content="https://qitoy.github.io/"><meta name=twitter:creator content><meta name=twitter:image content="https://qitoy.github.io/"><meta property="og:type" content="article"><meta property="og:title" content="dein.vimからdpp.vimに段階的に移行する - qitoy's blog"><meta property="og:description" content="これは何 移行しました
+"><meta property="og:url" content="https://qitoy.github.io/post/dein-to-dpp/"><meta property="og:site_name" content="dein.vimからdpp.vimに段階的に移行する"><meta property="og:image" content="https://qitoy.github.io/"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2023-10-27 11:05:18 +0900 +0900"></head><body><div style=position:relative><header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on"><div class="Header-item mobile-none" style=margin-top:-4px;margin-bottom:-4px><a class=Header-link href=https://qitoy.github.io/><svg class="octicon" height="32" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div><div class="Header-item d-md-none"><button class="Header-link btn-link js-details-target" type=button onclick='document.querySelector("#header-search").style.display=document.querySelector("#header-search").style.display=="none"?"block":"none"'><svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M1 2.75A.75.75.0 011.75 2h12.5a.75.75.0 110 1.5H1.75A.75.75.0 011 2.75zm0 5A.75.75.0 011.75 7h12.5a.75.75.0 110 1.5H1.75A.75.75.0 011 7.75zM1.75 12a.75.75.0 100 1.5h12.5a.75.75.0 100-1.5H1.75z"/></svg></button></div><div style=display:none id=header-search class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex"><div class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to"><div class=position-relative><form target=_blank action=https://www.google.com/search accept-charset=utf-8 method=get autocomplete=off><label class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center"><input type=text class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable" name=q placeholder=Search autocomplete=off>
+<input type=hidden name=q value=site:https://qitoy.github.io/></label></form></div></div></div><div class="Header-item Header-item--full flex-justify-center d-md-none position-relative"><a class=Header-link href=https://qitoy.github.io/><svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div><div class=Header-item style=margin-right:0><a href=javascript:void(0) class="Header-link no-select" onclick=switchTheme()><svg style="fill:var(--color-profile-color-modes-toggle-moon)" class="no-select" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.52208 7.71754c3.05612.0 5.53362-2.47748 5.53362-5.5336C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961 9.95801 1.07727 10.3495.771159 10.6474.99992c1.4679 1.12724 2.4141 2.90007 2.4141 4.89391.0 3.40575-2.7609 6.16667-6.16665 6.16667-2.94151.0-5.40199-2.0595-6.018122-4.81523C.794841 6.87902 1.23668 6.65289 1.55321 6.85451 2.41106 7.40095 3.4296 7.71754 4.52208 7.71754z"/></svg></a></div></header></div><div><main><div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4"><div class=px-0><div class="mb-3 d-flex px-3 px-md-3 px-lg-5"><div class="flex-auto min-width-0 width-fit mr-3"><div class=d-flex><div class="d-none d-md-block"><a class="avatar mr-2 flex-shrink-0" href=https://qitoy.github.io/><img class=avatar-user src=/images/avatar.jpg width=32 height=32></a></div><div class="d-flex flex-column"><h1 class="break-word f3 text-normal mb-md-0 mb-1"><span class=author><a href=https://qitoy.github.io/>しゅどぼ</a></span><span class=path-divider>/</span><strong class="css-truncate-target mr-1" style=max-width:410px><a href=https://qitoy.github.io/post/dein-to-dpp/>dein.vimからdpp.vimに段階的に移行する</a></strong></h1><div class="note m-0">Created <relative-time datetime="Fri, 27 Oct 2023 11:05:18 +0900" class=no-wrap>Fri, 27 Oct 2023 11:05:18 +0900</relative-time></div></div></div></div></div></div></div><div class="container-lg px-3 new-discussion-timeline"><div class="repository-content gist-content"><div><div class="js-gist-file-update-container js-task-list-container file-box"><div id=file-pytest class="file my-2"><div id=post-header class="file-header d-flex flex-md-items-center flex-items-start sticky-header" style=z-index:2><div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto"><div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0"><summary id=toc-toggle onclick=clickToc() class="btn btn-octicon m-0 mr-2 p-2"><svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered"><path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75.0 000 1.5h8.5a.75.75.0 000-1.5h-8.5zm0 5a.75.75.0 000 1.5h8.5a.75.75.0 000-1.5h-8.5zm0 5a.75.75.0 000 1.5h8.5a.75.75.0 000-1.5h-8.5zM3 8A1 1 0 111 8a1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"/></svg></summary><details-menu class=SelectMenu id=toc-details style="display: none;"><div class="SelectMenu-modal rounded-3 mt-1" style=max-height:340px><div class="SelectMenu-list SelectMenu-list--borderless p-2" style=overscroll-behavior:contain id=toc-list></div></div></details-menu>1293 Words</div><div class="file-actions flex-order-2 pt-0"></div></div></div><div class="Box-body px-5 pb-5" style=z-index:1><article class="markdown-body entry-content container-lg"><h1 id=これは何>これは何</h1><p>移行しました</p><h1 id=before>before</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-vim data-lang=vim><span style=display:flex><span><span style=color:#66d9ef>if</span> &amp;<span style=color:#a6e22e>compatible</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>set</span> <span style=color:#a6e22e>nocompatible</span>               <span style=color:#75715e>&#34; Be iMproved</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#a6e22e>has</span>(<span style=color:#e6db74>&#39;nvim&#39;</span>)
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>lua</span> <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>vim</span>.<span style=color:#a6e22e>loader</span> <span style=color:#a6e22e>then</span> <span style=color:#a6e22e>vim</span>.<span style=color:#a6e22e>loader</span>.<span style=color:#a6e22e>enable</span>() <span style=color:#a6e22e>end</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>&#34; dein install</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span> = <span style=color:#a6e22e>expand</span>(<span style=color:#e6db74>&#39;~/.cache&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> !<span style=color:#a6e22e>isdirectory</span>(<span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span>)
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>mkdir</span>(<span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span>, <span style=color:#e6db74>&#39;p&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>dein</span> = <span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span> .. <span style=color:#e6db74>&#39;/dein/repos/github.com/Shougo/dein.vim&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> !<span style=color:#a6e22e>isdirectory</span>(<span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>dein</span>)
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>execute</span> <span style=color:#e6db74>&#39;!git clone https://github.com/Shougo/dein.vim&#39;</span> <span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>dein</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>execute</span> <span style=color:#e6db74>&#39;set runtimepath^=&#39;</span> .. <span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>dein</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>g</span>:<span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>auto_recache</span> = <span style=color:#a6e22e>v</span>:<span style=color:#a6e22e>true</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>g</span>:<span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>install_progress_type</span> = <span style=color:#e6db74>&#39;floating&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>g</span>:<span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>install_check_diff</span> = <span style=color:#a6e22e>v</span>:<span style=color:#a6e22e>true</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>g</span>:<span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>install_github_api_token</span> = $<span style=color:#a6e22e>DEIN_INSTALL_GITHUB_API_TOKEN</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> $<span style=color:#a6e22e>VIM_DIR</span> = <span style=color:#a6e22e>expand</span>(<span style=color:#e6db74>&#39;~/.vim&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> $<span style=color:#a6e22e>VIM_TOMLS</span> = $<span style=color:#a6e22e>VIM_DIR</span> .. <span style=color:#e6db74>&#39;/&#39;</span> .. <span style=color:#e6db74>&#39;tomls&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> $<span style=color:#a6e22e>VIM_HOOKS</span> = $<span style=color:#a6e22e>VIM_DIR</span> .. <span style=color:#e6db74>&#39;/&#39;</span> .. <span style=color:#e6db74>&#39;hooks&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>g</span>:<span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>inline_vimrcs</span> = [<span style=color:#e6db74>&#39;$VIM_DIR/settings.vim&#39;</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>load_state</span>(<span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span> .. <span style=color:#e6db74>&#39;/dein&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#75715e>  &#34; Required:</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>begin</span>(<span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span> .. <span style=color:#e6db74>&#39;/dein&#39;</span>, <span style=color:#a6e22e>expand</span>(<span style=color:#e6db74>&#39;&lt;sfile&gt;&#39;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>load_toml</span>(<span style=color:#e6db74>&#39;$VIM_TOMLS/dein.toml&#39;</span>, {<span style=color:#e6db74>&#39;lazy&#39;</span>: <span style=color:#ae81ff>0</span>})
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>load_toml</span>(<span style=color:#e6db74>&#39;$VIM_TOMLS/dein_lazy.toml&#39;</span>, {<span style=color:#e6db74>&#39;lazy&#39;</span>: <span style=color:#ae81ff>1</span>})
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>has</span>(<span style=color:#e6db74>&#39;nvim&#39;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>load_toml</span>(<span style=color:#e6db74>&#39;$VIM_TOMLS/nvim.toml&#39;</span>, {<span style=color:#e6db74>&#39;lazy&#39;</span>: <span style=color:#ae81ff>1</span>})
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>load_toml</span>(<span style=color:#e6db74>&#39;$VIM_TOMLS/vim.toml&#39;</span>, {<span style=color:#e6db74>&#39;lazy&#39;</span>: <span style=color:#ae81ff>1</span>})
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>load_toml</span>(<span style=color:#e6db74>&#39;$VIM_TOMLS/ddc.toml&#39;</span>, {<span style=color:#e6db74>&#39;lazy&#39;</span>: <span style=color:#ae81ff>0</span>})
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>load_toml</span>(<span style=color:#e6db74>&#39;$VIM_TOMLS/ddu.toml&#39;</span>, {<span style=color:#e6db74>&#39;lazy&#39;</span>: <span style=color:#ae81ff>0</span>})
+</span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  &#34; Required:</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>end</span>()
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>save_state</span>()
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>&#34; Required:</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>filetype</span> <span style=color:#a6e22e>plugin</span> <span style=color:#a6e22e>indent</span> <span style=color:#a6e22e>on</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>syntax</span> <span style=color:#a6e22e>enable</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>&#34; If you want to install not installed plugins on startup.</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>check_install</span>()
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dein</span>#<span style=color:#a6e22e>install</span>()
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endif</span>
+</span></span></code></pre></div><h1 id=移行する>移行する</h1><h2 id=参考>参考</h2><p><a href=https://github.com/Shougo/shougo-s-github>リファレンス実装</a></p><h2 id=書き換え>書き換え</h2><h3 id=インストールスクリプトを関数化>インストールスクリプトを関数化</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-diff data-lang=diff><span style=display:flex><span><span style=color:#f92672>-let s:dein = s:cache .. &#39;/dein/repos/github.com/Shougo/dein.vim&#39;
+</span></span></span><span style=display:flex><span><span style=color:#f92672>-if !isdirectory(s:dein)
+</span></span></span><span style=display:flex><span><span style=color:#f92672>-  execute &#39;!git clone https://github.com/Shougo/dein.vim&#39; s:dein
+</span></span></span><span style=display:flex><span><span style=color:#f92672>-endif
+</span></span></span><span style=display:flex><span><span style=color:#f92672>-execute &#39;set runtimepath^=&#39; .. s:dein
+</span></span></span><span style=display:flex><span><span style=color:#f92672></span><span style=color:#a6e22e>+function InitPlugin(plugin)
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  let dir = s:cache .. &#39;/dein/repos/github.com/&#39; .. a:plugin
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  if !dir-&gt;isdirectory()
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+    execute &#39;!git clone https://github.com/&#39; .. a:plugin dir
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  endif
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  execute &#39;set runtimepath^=&#39; .. dir
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+endfunction
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+call InitPlugin(&#39;Shougo/dein.vim&#39;)
+</span></span></span></code></pre></div><h3 id=やってない場合augroup-vimrcをしておく>（やってない場合）<code>augroup vimrc</code>をしておく</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-diff data-lang=diff><span style=display:flex><span><span style=color:#a6e22e>+augroup vimrc
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  autocmd!
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+augroup END
+</span></span></span></code></pre></div><h3 id=dppminload_stateを配置><code>dpp#min#load_state()</code>を配置</h3><p>ソース読んだ感じだと無害そうなので一旦置く、ただし<code>dpp#make_state()</code>の副作用はデカいのでコメントアウト</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-diff data-lang=diff><span style=display:flex><span><span style=color:#a6e22e>+if dpp#min#load_state(s:cache .. &#39;/dein&#39;)
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  echohl WarningMsg | echomsg &#39;begin make state&#39; | echohl NONE
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  for s:plugin in [
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  \ &#39;Shougo/dpp-ext-installer&#39;,
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  \ &#39;Shougo/dpp-ext-toml&#39;,
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  \ &#39;Shougo/dpp-protocol-git&#39;,
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  \ &#39;vim-denops/denops.vim&#39;,
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  \]
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+    call InitPlugin(s:plugin)
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  endfor
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  &#34; NOTE: need manual load
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  runtime! plugin/denops.vim
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  &#34; autocmd vimrc User DenopsReady
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  &#34; \ call dpp#make_state(s:cache .. &#39;/dein&#39;, &#39;$VIM_HOOKS/dpp.ts&#39;-&gt;expand())
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  autocmd vimrc User Dpp:makeStatePost
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  \ echohl WarningMsg | echomsg &#39;end make state&#39; | echohl NONE
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+else
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  autocmd vimrc BufWritePost *.lua,*.vim,*.toml,*.ts,vimrc,.vimrc
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  \ call dpp#check_files()
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+endif
+</span></span></span></code></pre></div><h3 id=configを書く>configを書く</h3><p><code>init.vim</code>にあるdeinの設定を書けばよい。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>BaseConfig</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>ConfigArguments</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>ConfigReturn</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>Plugin</span>,
+</span></span><span style=display:flex><span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;https://deno.land/x/dpp_vim@v0.0.7/types.ts&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>fn</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;https://deno.land/x/dpp_vim@v0.0.7/deps.ts&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// dpp-ext-toml
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>type</span> <span style=color:#a6e22e>Toml</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>hooks_file?</span>: <span style=color:#66d9ef>string</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>ftplugins?</span>: <span style=color:#66d9ef>Record</span>&lt;<span style=color:#f92672>string</span><span style=color:#960050;background-color:#1e0010>,</span> <span style=color:#a6e22e>string</span>&gt;;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>plugins</span>: <span style=color:#66d9ef>Plugin</span>[];
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// dpp-ext-lazy
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>type</span> <span style=color:#a6e22e>LazyMakeStateResult</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>plugins</span>: <span style=color:#66d9ef>Plugin</span>[];
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>stateLines</span>: <span style=color:#66d9ef>string</span>[];
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Config</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>BaseConfig</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>override</span> <span style=color:#66d9ef>async</span> <span style=color:#a6e22e>config</span>(<span style=color:#a6e22e>args</span>: <span style=color:#66d9ef>ConfigArguments</span>)<span style=color:#f92672>:</span> <span style=color:#a6e22e>Promise</span>&lt;<span style=color:#f92672>ConfigReturn</span>&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>hasNvim</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>denops</span>.<span style=color:#a6e22e>meta</span>.<span style=color:#a6e22e>host</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;nvim&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// setting inline_vimrcs
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>inlineVimrcs</span> <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;$VIM_DIR/settings.vim&#34;</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>contextBuilder</span>.<span style=color:#a6e22e>setGlobal</span>({
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>inlineVimrcs</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>extParams</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>installer</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>checkDiff</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>protocols</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#34;git&#34;</span>],
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>protocolParams</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>git</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>enablePartialClone</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> [<span style=color:#a6e22e>context</span>, <span style=color:#a6e22e>options</span>] <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>contextBuilder</span>.<span style=color:#66d9ef>get</span>(<span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>denops</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// toml plugins
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>tomls</span>: <span style=color:#66d9ef>Toml</span>[] <span style=color:#f92672>=</span> [];
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// non-lazy
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>for</span> (
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>toml</span> <span style=color:#66d9ef>of</span> [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;$VIM_TOMLS/dein.toml&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;$VIM_TOMLS/ddc.toml&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;$VIM_TOMLS/ddu.toml&#34;</span>,
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    ) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>tomls</span>.<span style=color:#a6e22e>push</span>(
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>dpp</span>.<span style=color:#a6e22e>extAction</span>(
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>denops</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>context</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>options</span>,
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#34;toml&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#34;load&#34;</span>,
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>path</span>: <span style=color:#66d9ef>toml</span>,
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>options</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>              <span style=color:#a6e22e>lazy</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>        ) <span style=color:#66d9ef>as</span> <span style=color:#a6e22e>Toml</span>,
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// lazy
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>for</span> (
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>toml</span> <span style=color:#66d9ef>of</span> [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;$VIM_TOMLS/dein_lazy.toml&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>hasNvim</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;$VIM_TOMLS/nvim.toml&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;$VIM_TOMLS/vim.toml&#34;</span>,
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    ) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>tomls</span>.<span style=color:#a6e22e>push</span>(
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>dpp</span>.<span style=color:#a6e22e>extAction</span>(
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>denops</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>context</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>options</span>,
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#34;toml&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#34;load&#34;</span>,
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>path</span>: <span style=color:#66d9ef>toml</span>,
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>options</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>              <span style=color:#a6e22e>lazy</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>        ) <span style=color:#66d9ef>as</span> <span style=color:#a6e22e>Toml</span>,
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// merge result
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>recordPlugins</span>: <span style=color:#66d9ef>Record</span>&lt;<span style=color:#f92672>string</span><span style=color:#960050;background-color:#1e0010>,</span> <span style=color:#a6e22e>Plugin</span>&gt; <span style=color:#f92672>=</span> {};
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>ftplugins</span>: <span style=color:#66d9ef>Record</span>&lt;<span style=color:#f92672>string</span><span style=color:#960050;background-color:#1e0010>,</span> <span style=color:#a6e22e>string</span>&gt; <span style=color:#f92672>=</span> {};
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>hooksFiles</span>: <span style=color:#66d9ef>string</span>[] <span style=color:#f92672>=</span> [];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>toml</span> <span style=color:#66d9ef>of</span> <span style=color:#a6e22e>tomls</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>plugin</span> <span style=color:#66d9ef>of</span> <span style=color:#a6e22e>toml</span>.<span style=color:#a6e22e>plugins</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>recordPlugins</span>[<span style=color:#a6e22e>plugin</span>.<span style=color:#a6e22e>name</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>plugin</span>;
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>toml</span>.<span style=color:#a6e22e>ftplugins</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>filetype</span> <span style=color:#66d9ef>of</span> Object.<span style=color:#a6e22e>keys</span>(<span style=color:#a6e22e>toml</span>.<span style=color:#a6e22e>ftplugins</span>)) {
+</span></span><span style=display:flex><span>          <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>ftplugins</span>[<span style=color:#a6e22e>filetype</span>]) {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>ftplugins</span>[<span style=color:#a6e22e>filetype</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>;
+</span></span><span style=display:flex><span>          }
+</span></span><span style=display:flex><span>          <span style=color:#75715e>// ftplugins[filetype] is not undefined
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>          <span style=color:#a6e22e>ftplugins</span>[<span style=color:#a6e22e>filetype</span>] <span style=color:#f92672>+=</span> <span style=color:#e6db74>`</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#e6db74>n</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>toml</span>.<span style=color:#a6e22e>ftplugins</span>[<span style=color:#a6e22e>filetype</span>]<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>toml</span>.<span style=color:#a6e22e>hooks_file</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>hooksFiles</span>.<span style=color:#a6e22e>push</span>(<span style=color:#a6e22e>toml</span>.<span style=color:#a6e22e>hooks_file</span>);
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>lazyResult</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>dpp</span>.<span style=color:#a6e22e>extAction</span>(
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>denops</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>context</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>options</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;lazy&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;makeState&#34;</span>,
+</span></span><span style=display:flex><span>      {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>plugins</span>: <span style=color:#66d9ef>Object.values</span>(<span style=color:#a6e22e>recordPlugins</span>),
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>    ) <span style=color:#66d9ef>as</span> <span style=color:#a6e22e>LazyMakeStateResult</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// $VIM_DIR/init.vim
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// $VIM_DIR/settings.vim
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// $VIM_TOMLS/*,
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// $VIM_HOOKS/*,
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>checkFiles</span>: <span style=color:#66d9ef>string</span>[] <span style=color:#f92672>=</span> [];
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>checkFiles</span>.<span style=color:#a6e22e>push</span>(
+</span></span><span style=display:flex><span>      ...<span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fn</span>.<span style=color:#a6e22e>globpath</span>(
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>denops</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;$VIM_DIR&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;*.vim&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>      ) <span style=color:#66d9ef>as</span> <span style=color:#66d9ef>unknown</span> <span style=color:#66d9ef>as</span> <span style=color:#66d9ef>string</span>[],
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>checkFiles</span>.<span style=color:#a6e22e>push</span>(
+</span></span><span style=display:flex><span>      ...<span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fn</span>.<span style=color:#a6e22e>globpath</span>(
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>denops</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;$VIM_TOMLS&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;*&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>      ) <span style=color:#66d9ef>as</span> <span style=color:#66d9ef>unknown</span> <span style=color:#66d9ef>as</span> <span style=color:#66d9ef>string</span>[],
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>checkFiles</span>.<span style=color:#a6e22e>push</span>(
+</span></span><span style=display:flex><span>      ...<span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fn</span>.<span style=color:#a6e22e>globpath</span>(
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>args</span>.<span style=color:#a6e22e>denops</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;$VIM_HOOKS&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;*&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>      ) <span style=color:#66d9ef>as</span> <span style=color:#66d9ef>unknown</span> <span style=color:#66d9ef>as</span> <span style=color:#66d9ef>string</span>[],
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>checkFiles</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>ftplugins</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>hooksFiles</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>plugins</span>: <span style=color:#66d9ef>lazyResult.plugins</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>stateLines</span>: <span style=color:#66d9ef>lazyResult.stateLines</span>,
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=テスト>テスト</h3><p>思い切って<code>dein</code>の設定を<code>if 0</code>するなどし、<code>dpp#make_state()</code>のコメントを外す</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-diff data-lang=diff><span style=display:flex><span><span style=color:#f92672>-if dein#load_state(s:cache .. &#39;/dein&#39;)
+</span></span></span><span style=display:flex><span><span style=color:#f92672></span><span style=color:#a6e22e>+&#34; if dein#load_state(s:cache .. &#39;/dein&#39;)
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+if 0
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e></span>...
+</span></span><span style=display:flex><span><span style=color:#f92672>-  &#34; autocmd vimrc User DenopsReady
+</span></span></span><span style=display:flex><span><span style=color:#f92672>-  &#34; \ call dpp#make_state(s:cache .. &#39;/dein&#39;, &#39;$VIM_HOOKS/dpp.ts&#39;-&gt;expand())
+</span></span></span><span style=display:flex><span><span style=color:#f92672></span><span style=color:#a6e22e>+  autocmd vimrc User DenopsReady
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+  \ call dpp#make_state(s:cache .. &#39;/dein&#39;, &#39;$VIM_HOOKS/dpp.ts&#39;-&gt;expand())
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e></span>...
+</span></span><span style=display:flex><span><span style=color:#f92672>-if dein#check_install()
+</span></span></span><span style=display:flex><span><span style=color:#f92672></span><span style=color:#a6e22e>+&#34; if dein#check_install()
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>+if 0
+</span></span></span></code></pre></div><h3 id=バグ取り>バグ取り</h3><p>自分の環境では</p><pre tabindex=0><code>[denops] A &#39;deno&#39; (g:denops#deno) is not executable. Denops requires executable Deno.
+</code></pre><p>と出てきたので以下の行を追加</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-diff data-lang=diff><span style=display:flex><span><span style=color:#a6e22e>+let g:denops#deno = &#39;~/.deno/bin/deno&#39;-&gt;expand()
+</span></span></span></code></pre></div><pre tabindex=0><code>[denops] Failed to handle message 2,invoke,dispatch,dpp,makeState,/home/qitoy/.cache/dein,/home/qito
+y/.vim/hooks/dpp.ts,nvim 0,function dpp#ext#lazy#_generate_dummy_mappings, line 7: Vim(let):E928: St
+ring required
+</code></pre><p>なんじゃこりゃ～～～</p><p>どうやら<code>on_map</code>は<code>(Dictionary) or (List) or (String)</code>だけど実装を見ると<code>String</code>はダメっぽいので修正</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-diff data-lang=diff><span style=display:flex><span><span style=color:#f92672>-on_map = &#39;&lt;Plug&gt;(asterisk-&#39;
+</span></span></span><span style=display:flex><span><span style=color:#f92672></span><span style=color:#a6e22e>+on_map = [&#39;&lt;Plug&gt;(asterisk-&#39;]
+</span></span></span></code></pre></div><h3 id=仕上げ>仕上げ</h3><p>問題無さそうだったら<code>dein.vim</code>関連の記述を削除してプラグインのインストールをする</p><p>最終的にこうなった</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-vim data-lang=vim><span style=display:flex><span><span style=color:#66d9ef>if</span> &amp;<span style=color:#a6e22e>compatible</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>set</span> <span style=color:#a6e22e>nocompatible</span>               <span style=color:#75715e>&#34; Be iMproved</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#a6e22e>has</span>(<span style=color:#e6db74>&#39;nvim&#39;</span>)
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>lua</span> <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>vim</span>.<span style=color:#a6e22e>loader</span> <span style=color:#a6e22e>then</span> <span style=color:#a6e22e>vim</span>.<span style=color:#a6e22e>loader</span>.<span style=color:#a6e22e>enable</span>() <span style=color:#a6e22e>end</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>augroup</span> <span style=color:#a6e22e>vimrc</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>autocmd</span>!
+</span></span><span style=display:flex><span><span style=color:#a6e22e>augroup</span> <span style=color:#a6e22e>END</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>g</span>:<span style=color:#a6e22e>denops</span>#<span style=color:#a6e22e>deno</span> = <span style=color:#e6db74>&#39;~/.deno/bin/deno&#39;</span>-&gt;<span style=color:#a6e22e>expand</span>()
+</span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>&#34; dpp install</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span> = <span style=color:#a6e22e>expand</span>(<span style=color:#e6db74>&#39;~/.cache&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> !<span style=color:#a6e22e>isdirectory</span>(<span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span>)
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>mkdir</span>(<span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span>, <span style=color:#e6db74>&#39;p&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>InitPlugin</span>(<span style=color:#a6e22e>plugin</span>)
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>dir</span> = <span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span> .. <span style=color:#e6db74>&#39;/dpp/repos/github.com/&#39;</span> .. <span style=color:#a6e22e>a</span>:<span style=color:#a6e22e>plugin</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> !<span style=color:#a6e22e>dir</span>-&gt;<span style=color:#a6e22e>isdirectory</span>()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>execute</span> <span style=color:#e6db74>&#39;!git clone https://github.com/&#39;</span> .. <span style=color:#a6e22e>a</span>:<span style=color:#a6e22e>plugin</span> <span style=color:#a6e22e>dir</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>execute</span> <span style=color:#e6db74>&#39;set runtimepath^=&#39;</span> .. <span style=color:#a6e22e>dir</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endfunction</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> $<span style=color:#a6e22e>VIM_DIR</span> = <span style=color:#a6e22e>expand</span>(<span style=color:#e6db74>&#39;~/.vim&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> $<span style=color:#a6e22e>VIM_TOMLS</span> = $<span style=color:#a6e22e>VIM_DIR</span> .. <span style=color:#e6db74>&#39;/&#39;</span> .. <span style=color:#e6db74>&#39;tomls&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> $<span style=color:#a6e22e>VIM_HOOKS</span> = $<span style=color:#a6e22e>VIM_DIR</span> .. <span style=color:#e6db74>&#39;/&#39;</span> .. <span style=color:#e6db74>&#39;hooks&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>call</span> <span style=color:#a6e22e>InitPlugin</span>(<span style=color:#e6db74>&#39;Shougo/dpp.vim&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#75715e>&#34; need to load lazy plugins</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>call</span> <span style=color:#a6e22e>InitPlugin</span>(<span style=color:#e6db74>&#39;Shougo/dpp-ext-lazy&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#a6e22e>dpp</span>#<span style=color:#a6e22e>min</span>#<span style=color:#a6e22e>load_state</span>(<span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span> .. <span style=color:#e6db74>&#39;/dpp&#39;</span>)
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>echohl</span> <span style=color:#a6e22e>WarningMsg</span> | <span style=color:#a6e22e>echomsg</span> <span style=color:#e6db74>&#39;begin make state&#39;</span> | <span style=color:#a6e22e>echohl</span> NONE
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>for</span> <span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>plugin</span> <span style=color:#a6e22e>in</span> [
+</span></span><span style=display:flex><span>  \ <span style=color:#e6db74>&#39;Shougo/dpp-ext-installer&#39;</span>,
+</span></span><span style=display:flex><span>  \ <span style=color:#e6db74>&#39;Shougo/dpp-ext-toml&#39;</span>,
+</span></span><span style=display:flex><span>  \ <span style=color:#e6db74>&#39;Shougo/dpp-protocol-git&#39;</span>,
+</span></span><span style=display:flex><span>  \ <span style=color:#e6db74>&#39;vim-denops/denops.vim&#39;</span>,
+</span></span><span style=display:flex><span>  \]
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>InitPlugin</span>(<span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>plugin</span>)
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>endfor</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  &#34; NOTE: need manual load</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>runtime</span>! <span style=color:#a6e22e>plugin</span>/<span style=color:#a6e22e>denops</span>.<span style=color:#a6e22e>vim</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>autocmd</span> <span style=color:#a6e22e>vimrc</span> <span style=color:#a6e22e>User</span> <span style=color:#a6e22e>DenopsReady</span>
+</span></span><span style=display:flex><span>  \ <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dpp</span>#<span style=color:#a6e22e>make_state</span>(<span style=color:#a6e22e>s</span>:<span style=color:#a6e22e>cache</span> .. <span style=color:#e6db74>&#39;/dpp&#39;</span>, <span style=color:#e6db74>&#39;$VIM_HOOKS/dpp.ts&#39;</span>-&gt;<span style=color:#a6e22e>expand</span>())
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>autocmd</span> <span style=color:#a6e22e>vimrc</span> <span style=color:#a6e22e>User</span> <span style=color:#a6e22e>Dpp</span>:<span style=color:#a6e22e>makeStatePost</span>
+</span></span><span style=display:flex><span>  \ <span style=color:#a6e22e>echohl</span> <span style=color:#a6e22e>WarningMsg</span> | <span style=color:#a6e22e>echomsg</span> <span style=color:#e6db74>&#39;end make state&#39;</span> | <span style=color:#a6e22e>echohl</span> NONE
+</span></span><span style=display:flex><span><span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>autocmd</span> <span style=color:#a6e22e>vimrc</span> <span style=color:#a6e22e>BufWritePost</span> *.<span style=color:#a6e22e>lua</span>,*.<span style=color:#a6e22e>vim</span>,*.<span style=color:#a6e22e>toml</span>,*.<span style=color:#a6e22e>ts</span>,<span style=color:#a6e22e>vimrc</span>,.<span style=color:#a6e22e>vimrc</span>
+</span></span><span style=display:flex><span>  \ <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>dpp</span>#<span style=color:#a6e22e>check_files</span>()
+</span></span><span style=display:flex><span><span style=color:#66d9ef>endif</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>filetype</span> <span style=color:#a6e22e>plugin</span> <span style=color:#a6e22e>indent</span> <span style=color:#a6e22e>on</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>syntax</span> <span style=color:#a6e22e>enable</span>
+</span></span></code></pre></div><h1 id=おわりに>おわりに</h1><p>後は細かい調整とかをしよう</p></article></div></div></div></div></div></div></main></div><script type=application/javascript src=https://qitoy.github.io/js/toc.js></script>
+<link rel=stylesheet href=https://qitoy.github.io/css/toc.css><div class="footer container-xl width-full p-responsive"><div class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light"><a aria-label=Homepage title=GitHub class="footer-octicon d-none d-lg-block mr-lg-4" href=https://qitoy.github.io/><svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a><ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0"><li class="mr-3 mr-lg-0">Theme by <a href=https://github.com/MeiK2333/github-style>github-style</a></li></ul></div><div class="d-flex flex-justify-center pb-6"><span class="f6 text-gray-light"></span></div></div></body><script type=application/javascript src=https://qitoy.github.io/js/github-style.js></script></html>
