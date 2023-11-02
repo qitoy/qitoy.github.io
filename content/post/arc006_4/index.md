@@ -2,7 +2,7 @@
 title: "アルファベット探し"
 date: 2023-03-03T21:55:08+09:00
 tags:
-- Atcoder
+- AtCoder
 draft: false
 ---
 
