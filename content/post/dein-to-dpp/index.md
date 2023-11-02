@@ -1,6 +1,9 @@
 ---
 title: "dein.vimからdpp.vimに段階的に移行する"
 date: 2023-10-27T11:05:18+09:00
+tags:
+- Vim
+- dpp.vim
 draft: false
 ---
 

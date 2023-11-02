@@ -1,6 +1,8 @@
 ---
 title: "もっとブログ書け"
 date: 2023-10-22T16:07:56+09:00
+tags:
+- tips
 draft: false
 ---
 

@@ -1,6 +1,10 @@
 ---
 title: "しゅどぼのPC環境"
 date: 2023-10-23T21:02:53+09:00
+tags:
+- Linux
+- Sway
+- Vim
 draft: false
 ---
 

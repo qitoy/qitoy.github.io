@@ -1,6 +1,8 @@
 ---
 title: "SATySFiでレポート課題を書いた"
 date: 2023-10-25T10:39:23+09:00
+tags:
+- SATySFi
 draft: false
 ---
 

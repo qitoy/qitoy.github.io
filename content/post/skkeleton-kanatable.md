@@ -1,6 +1,9 @@
 ---
 title: "Skkeleton KanaTable"
 date: 2023-01-01T21:27:28+09:00
+tags:
+- Vim
+- skkeleton
 draft: false
 ---
 
