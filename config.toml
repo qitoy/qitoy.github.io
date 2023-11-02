@@ -3,6 +3,9 @@ languageCode = 'ja-jp'
 title = "qitoy's blog"
 enableGitInfo = true
 
+[frontmatter]
+lastmod = ["lastmod", ":fileModTime", ":default"]
+
 [params]
 author = 'しゅどぼ'
 avatar = "/images/avatar.jpg"
@@ -11,6 +14,7 @@ github = 'qitoy'
 twitter = '_QiToY'
 hugoRepository = 'qitoy.github.io'
 url = 'https://github.com/qitoy/qitoy.github.io'
+lastmod = true
 
 [module]
 [[module.imports]]
