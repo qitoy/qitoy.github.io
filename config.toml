@@ -1,4 +1,4 @@
-baseURL = 'https://qitoy.github.io/'
+baseURL = 'https://github.qitoy.dev'
 languageCode = 'ja-jp'
 title = "qitoy's blog"
 enableGitInfo = true
