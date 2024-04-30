@@ -18,6 +18,6 @@ lastmod = true
 
 [module]
 [[module.imports]]
-path = "github.com/MeiK2333/github-style"
+path = "github.com/qitoy/github-style"
 [[module.imports]]
 path = "github.com/sytranvn/hugo-pdf"
