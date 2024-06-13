@@ -3,9 +3,6 @@ languageCode = 'ja-jp'
 title = "qitoy's blog"
 enableGitInfo = true
 
-[frontmatter]
-lastmod = ["lastmod", ":fileModTime", ":default"]
-
 [params]
 author = 'しゅどぼ'
 avatar = "/images/avatar.jpg"

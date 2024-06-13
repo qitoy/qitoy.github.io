@@ -1,6 +1,8 @@
 ---
 title: "YY Square"
 date: 2023-11-28T10:07:42+09:00
+tags:
+- AtCoder
 draft: false
 math: true
 summary: "愚直DPを多項式(あるいはFPS)を用いて高速化した"
