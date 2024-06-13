@@ -4,13 +4,8 @@ date: 2023-10-25T10:39:23+09:00
 tags:
 - SATySFi
 draft: false
+summary: "SATySFiの書き方とか"
 ---
-
-# これは何
-
-SATySFiの書き方とか
-
-<!--more-->
 
 # 目標
 

@@ -5,13 +5,8 @@ tags:
 - Vim
 - dpp.vim
 draft: false
+summary: "実際のコード付き"
 ---
-
-# これは何
-
-移行しました
-
-<!--more-->
 
 # before
 

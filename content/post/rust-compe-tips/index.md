@@ -6,15 +6,8 @@ tags:
 - AtCoder
 - tips
 draft: false
+summary: "主にAtCoder"
 ---
-
-# これは何
-
-競プロ（AtCoder）ですが……
-
-随時更新
-
-<!--more-->
 
 # DFS中に関数から抜け出す
 

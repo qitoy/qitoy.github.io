@@ -4,13 +4,8 @@ date: 2023-02-23T01:13:17+09:00
 tags:
 - AtCoder
 draft: false
+summary: "自分の解法のメモ"
 ---
-
-# これは何
-
-公式解説とは解法が違ったのでメモ
-
-<!--more-->
 
 続きは[こちら](https://qitoy.github.io/misc/latex/dwacon6th_prelims_b.pdf)
 

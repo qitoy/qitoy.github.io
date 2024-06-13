@@ -3,13 +3,8 @@ title: "RE: 素数数えよう"
 date: 2024-04-26T22:51:30+09:00
 draft: false
 math: true
+summary: "[素数数えよう](https://qitoy.hatenablog.com/entry/2021/09/27/113420)を見返してみたところ、意味不明であったので、書き直すことにした"
 ---
-
-# これは何
-
-[素数数えよう](https://qitoy.hatenablog.com/entry/2021/09/27/113420)を見返してみたところ、意味不明であったので、書き直すことにした
-
-<!--more-->
 
 $$
 \global\def\paren#1{\left(#1\right)}

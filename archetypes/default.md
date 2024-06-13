@@ -2,8 +2,5 @@
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 draft: true
+summary: ""
 ---
-
-# これは何
-
-<!--more-->

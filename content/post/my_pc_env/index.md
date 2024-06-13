@@ -6,13 +6,8 @@ tags:
 - Sway
 - Vim
 draft: false
+summary: "Asahi Linuxのはなし"
 ---
-
-# これは何
-
-Asahi Linuxのはなし
-
-<!--more-->
 
 # おおまかな環境
 

@@ -5,15 +5,8 @@ tags:
 - Vim
 - skkeleton
 draft: false
+summary: "自分のskkeletonのkanatableを解説するよ"
 ---
-
-# これは何
-
-自分のskkeletonのkanatableを解説するよ
-
-詳しくは[ここらへん](https://github.com/qitoy/dotfiles/blob/main/.vim/autoload/vimrc.vim#L42)を見ればいいんじゃない？(おい)
-
-<!--more-->
 
 # おことわり
 

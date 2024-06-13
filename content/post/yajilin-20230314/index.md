@@ -4,13 +4,12 @@ date: 2023-03-14T04:44:25+09:00
 tags:
 - ヤジリン
 draft: false
+summary: "自作問題の解説"
 ---
 
-# これは何
+# 問題
 
-https://puzsq.logicpuzzle.app/puzzle/106302 の解説をするよ
-
-<!--more-->
+https://puzsq.logicpuzzle.app/puzzle/106302
 
 # 解説
 
